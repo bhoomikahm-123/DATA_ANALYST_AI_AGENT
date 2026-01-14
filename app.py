@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 
 # Load .env for GOOGLE_API_KEY
 load_dotenv()
-
+GOOGLE_API_KEY = st.secrets["google"]["api_key"] if "google" in st.secrets else os.getenv("GOOGLE_API_KEY")
 # ========================================
 # Helper: Normalize saved charts output
 # ========================================
@@ -414,3 +414,4 @@ with tab6:
                         )
 
                     st.success("🎉 Dashboard Image Generated Successfully!")
+
