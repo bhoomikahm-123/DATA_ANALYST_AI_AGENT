@@ -280,7 +280,7 @@ with tab4:
                     metrics = regression_model_pipeline(
                         df,
                         target_col,
-                        api_key=os.getenv("GOOGLE_API_KEY")
+                        GOOGLE_API_KEY
                     )
                     st.success("🎯 Model Training Completed!")
                     st.json(metrics if metrics is not None else {})
@@ -422,5 +422,6 @@ with tab6:
                         )
 
                     st.success("🎉 Dashboard Image Generated Successfully!")
+
 
 
