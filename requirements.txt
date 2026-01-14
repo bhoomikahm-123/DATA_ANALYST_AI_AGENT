@@ -11,6 +11,7 @@ python-dotenv   # Load environment variables from .env
 
 # Google Gemini / Generative AI API
 google-generativeai   # Access Google Gemini AI for insights
+google-genai
 
 # Optional utilities
 openpyxl        # Read/write Excel files
@@ -18,4 +19,5 @@ requests        # HTTP requests (for API calls)
 fpdf            # PDF generation
 Pillow          # Image processing (for dashboard)
 plotly          # Interactive dashboards (optional)
+
 
