@@ -11,10 +11,7 @@ from data_analysis_agent import analyze_data_with_charts
 # <-- updated import: use the premium PDF exporter
 from report_export_agent import create_premium_pdf
 from Dashboard_export_agent import render_dashboard_image
-from dotenv import load_dotenv
 
-# Load .env for GOOGLE_API_KEY
-load_dotenv()
 GOOGLE_API_KEY = st.secrets["google"]["api_key"] if "google" in st.secrets else os.getenv("GOOGLE_API_KEY")
 def _ensure_api_key_ui():
     if not GOOGLE_API_KEY:
@@ -421,6 +418,7 @@ with tab6:
                         )
 
                     st.success("🎉 Dashboard Image Generated Successfully!")
+
 
 
 
