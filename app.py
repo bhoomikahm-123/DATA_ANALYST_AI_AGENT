@@ -16,6 +16,14 @@ from dotenv import load_dotenv
 # Load .env for GOOGLE_API_KEY
 load_dotenv()
 GOOGLE_API_KEY = st.secrets["google"]["api_key"] if "google" in st.secrets else os.getenv("GOOGLE_API_KEY")
+def _ensure_api_key_ui():
+    if not GOOGLE_API_KEY:
+        with st.sidebar:
+            st.error("GOOGLE_API_KEY not found. Add it to Streamlit Secrets or .env.")
+        return False
+    return True
+if not _ensure_api_key_ui():
+    st.stop()
 # ========================================
 # Helper: Normalize saved charts output
 # ========================================
@@ -414,4 +422,5 @@ with tab6:
                         )
 
                     st.success("🎉 Dashboard Image Generated Successfully!")
+
 
