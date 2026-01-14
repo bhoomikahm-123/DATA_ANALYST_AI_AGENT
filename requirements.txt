@@ -16,8 +16,9 @@ google-genai
 # Optional utilities
 openpyxl        # Read/write Excel files
 requests        # HTTP requests (for API calls)
-fpdf            # PDF generation
+fpdf2           # PDF generation
 Pillow          # Image processing (for dashboard)
 plotly          # Interactive dashboards (optional)
+
 
 
