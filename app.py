@@ -195,7 +195,7 @@ with tab2:
                         st.error("AI analysis cannot run without GOOGLE_API_KEY set.")
                     else:
                         # Run analysis
-                        analysis_result = analyze_data_with_charts(df)
+                        analysis_result = analyze_data_with_charts(df, GOOGLE_API_KEY)
 
                         if not analysis_result:
                             st.error("AI analysis returned no results.")
@@ -420,6 +420,7 @@ with tab6:
                         )
 
                     st.success("🎉 Dashboard Image Generated Successfully!")
+
 
 
 
