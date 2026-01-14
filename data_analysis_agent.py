@@ -12,8 +12,8 @@ import requests
 import google.generativeai as genai
 
 load_dotenv()
-
-API_KEY = os.getenv("GOOGLE_API_KEY")
+GOOGLE_API_KEY = st.secrets["google"]["api_key"] if "google" in st.secrets else os.getenv("GOOGLE_API_KEY")
+API_KEY = GOOGLE_API_KEY
 PREFERRED_MODEL = os.getenv("GENAI_MODEL", "models/gemini-2.5-flash")  # override via .env if needed
 genai.configure(api_key="YOUR_API_KEY")
 
@@ -231,3 +231,4 @@ Keep explanations short and precise.
         "correlations": correlations,
         "processed_df": df
     }
+
