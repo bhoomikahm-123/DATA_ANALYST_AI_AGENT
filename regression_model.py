@@ -9,6 +9,7 @@ import numpy as np
 from google import genai
 
 def regression_model_pipeline(df, target_col=None, api_key=None):
+    genai.configure(api_key=api_key)
     """Perform regression analysis with explanations and plots."""
 
     st.subheader("📈 Regression Model Results")
@@ -99,5 +100,6 @@ def regression_model_pipeline(df, target_col=None, api_key=None):
     except Exception as e:
         st.error(f"❌ Regression error: {e}")
         return
+
 
 
