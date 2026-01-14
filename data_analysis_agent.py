@@ -106,22 +106,20 @@ Return a JSON array with items: x, y (or null), chart_type (scatter,histogram,bo
 Keep explanations short and precise.
 """
 
-   ai_response = ""
-   chart_recommendations = []
-
-   try:
-       genai.configure(api_key=api_key)
-       model = genai.GenerativeModel("models/gemini-2.5-flash")
-       response = model.generate_content(prompt)
-       ai_response = response.text or ""
-       try:
-           chart_recommendations = json.loads(ai_response)
-       except Exception:
-           chart_recommendations = []
-
-   except Exception as e:
-      ai_response = f"AI analysis failed: {e}"
-      chart_recommendations = []
+    ai_response = ""
+    chart_recommendations = []
+    try:
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel("models/gemini-2.5-flash")
+        response = model.generate_content(prompt)
+        ai_response = response.text or ""
+        try:
+            chart_recommendations = json.loads(ai_response)
+        except Exception:
+            chart_recommendations = []
+    except Exception as e:
+        ai_response = f"AI analysis failed: {e}"
+        chart_recommendations = []
 
 
     # fallback generate diversified chart suggestions
@@ -208,6 +206,7 @@ Keep explanations short and precise.
         "correlations": correlations,
         "processed_df": df
     }
+
 
 
 
