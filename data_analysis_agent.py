@@ -1,21 +1,29 @@
-# data_analysis_agent.py  (replace existing)
+import os
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import IsolationForest
-from google import genai
-import os
-from dotenv import load_dotenv
 import json
 import streamlit as st
 import requests
 import google.generativeai as genai
+from dotenv import load_dotenv
 
+# Load .env for local testing
 load_dotenv()
+
+# -----------------------------
+# Read API key safely
+# -----------------------------
 GOOGLE_API_KEY = st.secrets["google"]["api_key"] if "google" in st.secrets else os.getenv("GOOGLE_API_KEY")
-API_KEY = GOOGLE_API_KEY
-PREFERRED_MODEL = os.getenv("GENAI_MODEL", "models/gemini-2.5-flash")  # override via .env if needed
-genai.configure(api_key="YOUR_API_KEY")
+if not GOOGLE_API_KEY:
+    raise RuntimeError("❌ GOOGLE_API_KEY not found. Add it to .env locally or Streamlit Secrets in Cloud.")
+
+# Configure the Google GenAI client
+genai.configure(api_key=GOOGLE_API_KEY)
+
+# Optional: preferred model (override via .env)
+PREFERRED_MODEL = os.getenv("GENAI_MODEL", "models/gemini-2.5-flash")
 
 def list_models(api_key):
     url = f"https://generativelanguage.googleapis.com/v1beta/models?key={api_key}"
@@ -231,4 +239,5 @@ Keep explanations short and precise.
         "correlations": correlations,
         "processed_df": df
     }
+
 
