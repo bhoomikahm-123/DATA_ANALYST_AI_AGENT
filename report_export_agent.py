@@ -4,25 +4,6 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 from fpdf import FPDF
 
-# Load .env for local development
-load_dotenv()
-
-# Read API key safely
-GOOGLE_API_KEY = (
-    st.secrets["google"]["api_key"]
-    if "google" in st.secrets
-    else os.getenv("GOOGLE_API_KEY")
-)
-
-if not GOOGLE_API_KEY:
-    raise RuntimeError(
-        "GOOGLE_API_KEY not found. Set it in Streamlit Secrets or .env"
-    )
-
-# Configure GenAI
-genai.configure(api_key=GOOGLE_API_KEY)
-
-
 
 # ---------------- PDF Class ---------------- #
 
@@ -123,7 +104,8 @@ def generate_ai_chart_title(chart: dict) -> str:
 
 # ---------------- Main PDF Generator ---------------- #
 
-def create_premium_pdf(df_raw, analysis_result, json_file="chart_recommendations.json", output_path=None):
+def create_premium_pdf(df_raw, analysis_result, api_key, json_file="chart_recommendations.json", output_path=None):
+    genai.configure(api_key=api_key)
     pdf = PremiumPDF()
     pdf.set_auto_page_break(True, 15)
     _register_unicode_font(pdf)
@@ -224,6 +206,7 @@ def create_premium_pdf(df_raw, analysis_result, json_file="chart_recommendations
     )
     pdf.output(outpath)
     return outpath
+
 
 
 
