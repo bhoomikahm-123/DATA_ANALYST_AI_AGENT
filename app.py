@@ -45,16 +45,6 @@ def _normalize_saved_charts(saved_charts):
 # ========================================
 st.set_page_config(page_title="InsightPilot", page_icon=":rocket:", layout="wide")
 
-# Small utility to show a persistent API-key banner if missing
-def _ensure_api_key_ui():
-    key = os.getenv("GOOGLE_API_KEY")
-    if not key:
-        with st.sidebar:
-            st.error("GOOGLE_API_KEY not found. Add it to your .env or environment variables.")
-            st.markdown("Follow the instructions to create/renew a Google Generative AI API key in AI Studio.")
-        return False
-    return True
-
 # ========================================
 # TITLE SECTION
 # ========================================
@@ -418,6 +408,7 @@ with tab6:
                         )
 
                     st.success("🎉 Dashboard Image Generated Successfully!")
+
 
 
 
