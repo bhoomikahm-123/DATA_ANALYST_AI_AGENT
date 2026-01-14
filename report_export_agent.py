@@ -1,15 +1,26 @@
 import os
-import datetime
-from fpdf import FPDF
+import streamlit as st
 import google.generativeai as genai
-from visualization import render_and_save_charts
+from dotenv import load_dotenv
 
-# ---------------- Configuration ---------------- #
+# Load .env for local development
+load_dotenv()
 
-OUTPUT_DIR = "outputs"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+# Read API key safely
+GOOGLE_API_KEY = (
+    st.secrets["google"]["api_key"]
+    if "google" in st.secrets
+    else os.getenv("GOOGLE_API_KEY")
+)
 
+if not GOOGLE_API_KEY:
+    raise RuntimeError(
+        "GOOGLE_API_KEY not found. Set it in Streamlit Secrets or .env"
+    )
+
+# Configure GenAI
 genai.configure(api_key=GOOGLE_API_KEY)
+
 
 
 # ---------------- PDF Class ---------------- #
@@ -212,4 +223,5 @@ def create_premium_pdf(df_raw, analysis_result, json_file="chart_recommendations
     )
     pdf.output(outpath)
     return outpath
+
 
