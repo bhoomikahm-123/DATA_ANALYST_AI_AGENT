@@ -310,6 +310,7 @@ with tab5:
                     pdf_path = create_premium_pdf(
                         df_raw,
                         analysis_result,
+                        GOOGLE_API_KEY,
                         json_file="chart_recommendations.json",
                         output_path="AI_Data_Insights_Report.pdf"
                     )
@@ -420,6 +421,7 @@ with tab6:
                         )
 
                     st.success("🎉 Dashboard Image Generated Successfully!")
+
 
 
 
