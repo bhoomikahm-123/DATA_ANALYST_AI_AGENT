@@ -34,7 +34,8 @@ def pick_supported_model(api_key, want_method="generateContent"):
     # last resort: return None
     return None
 
-def analyze_data_with_charts(df, json_file="chart_recommendations.json"):
+def analyze_data_with_charts(df, api_key, json_file="chart_recommendations.json"):
+    genai.configure(api_key=api_key)
     if df is None or df.empty:
         return {
             "summary": None,
@@ -105,20 +106,23 @@ Return a JSON array with items: x, y (or null), chart_type (scatter,histogram,bo
 Keep explanations short and precise.
 """
 
-    ai_response = ""
-    chart_recommendations = []
-    try:
-        model_name, model = _configure_model()
-        # small safety: limit prompt length; this is still a text request
-        response = model.generate_content(prompt)
-        ai_response = getattr(response, "text", "") or ""
-        try:
-            chart_recommendations = json.loads(ai_response)
-        except Exception:
-            chart_recommendations = []
-    except Exception as e:
-        ai_response = f"⚠️ Error getting AI insights: {e}"
-        chart_recommendations = []
+   ai_response = ""
+   chart_recommendations = []
+
+   try:
+       genai.configure(api_key=api_key)
+       model = genai.GenerativeModel("models/gemini-2.5-flash")
+       response = model.generate_content(prompt)
+       ai_response = response.text or ""
+       try:
+           chart_recommendations = json.loads(ai_response)
+       except Exception:
+           chart_recommendations = []
+
+   except Exception as e:
+      ai_response = f"AI analysis failed: {e}"
+      chart_recommendations = []
+
 
     # fallback generate diversified chart suggestions
     if not chart_recommendations:
@@ -204,6 +208,7 @@ Keep explanations short and precise.
         "correlations": correlations,
         "processed_df": df
     }
+
 
 
 
