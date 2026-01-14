@@ -22,8 +22,6 @@ def _ensure_api_key_ui():
             st.error("GOOGLE_API_KEY not found. Add it to Streamlit Secrets or .env.")
         return False
     return True
-if not _ensure_api_key_ui():
-    st.stop()
 # ========================================
 # Helper: Normalize saved charts output
 # ========================================
@@ -422,6 +420,7 @@ with tab6:
                         )
 
                     st.success("🎉 Dashboard Image Generated Successfully!")
+
 
 
 
