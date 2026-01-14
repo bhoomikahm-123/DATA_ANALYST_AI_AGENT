@@ -1,7 +1,18 @@
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-reportlab
-streamlit
+# Core libraries
+pandas          # Data manipulation
+numpy           # Numerical computations
+scikit-learn    # Machine learning models
+matplotlib      # Plotting charts
+seaborn         # Statistical data visualization
+streamlit       # Web app interface
+python-dotenv   # Load environment variables from .env
+
+# Google Gemini / Generative AI API
+google-generativeai   # Access Google Gemini AI for insights
+
+# Optional utilities
+openpyxl        # Read/write Excel files
+requests        # HTTP requests (for API calls)
+fpdf            # PDF generation
+Pillow          # Image processing (for dashboard)
+plotly          # Interactive dashboards (optional)
