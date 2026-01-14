@@ -2,6 +2,7 @@ import os
 import streamlit as st
 import google.generativeai as genai
 from dotenv import load_dotenv
+from fpdf import FPDF
 
 # Load .env for local development
 load_dotenv()
@@ -223,5 +224,6 @@ def create_premium_pdf(df_raw, analysis_result, json_file="chart_recommendations
     )
     pdf.output(outpath)
     return outpath
+
 
 
