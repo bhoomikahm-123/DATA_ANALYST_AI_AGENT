@@ -71,7 +71,7 @@ def regression_model_pipeline(df, target_col=None, api_key=None):
         # --- Optional AI Explanation ---
         if api_key:
             try:
-                client = TextGenerationClient(api_key=api_key)
+                client = Client(api_key=api_key)
                 prompt = f"""
 You are a professional data analyst.
 The regression model predicts {target_col}.
@@ -81,8 +81,8 @@ Metrics:
 - RMSE: {rmse:.2f}
 Explain these metrics and the model's predictive performance in simple, non-technical language for a beginner. Keep it under 150 words.
 """
-                response = client.generate(
-                model="models/gemini-2.5-flash",
+                response = client.generate_text(
+                model="gemini-2.5",
                 prompt=prompt
                 )
                 ai_text = response.text
@@ -103,6 +103,7 @@ Explain these metrics and the model's predictive performance in simple, non-tech
     except Exception as e:
         st.error(f"❌ Regression error: {e}")
         return
+
 
 
 
