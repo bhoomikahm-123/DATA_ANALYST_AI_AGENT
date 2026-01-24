@@ -6,7 +6,7 @@ from sklearn.metrics import r2_score, mean_squared_error
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from google.generativeai import TextGenerationClient
+from google_genai import Client
 
 def regression_model_pipeline(df, target_col=None, api_key=None):
     """Perform regression analysis with explanations and plots."""
@@ -103,5 +103,6 @@ Explain these metrics and the model's predictive performance in simple, non-tech
     except Exception as e:
         st.error(f"❌ Regression error: {e}")
         return
+
 
 
