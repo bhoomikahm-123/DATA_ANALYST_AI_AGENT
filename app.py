@@ -59,11 +59,11 @@ with st.container():
         st.session_state.welcome_message = welcome_message()
         st.write(stream_data(st.session_state.welcome_message))
         time.sleep(0.5)
-        st.write("[GitHub > ](https://github.com/Wilson-ZheLin/Streamline-Analyst)")
+        st.write("[GitHub > ](https://github.com/bhoomikahm-123/DATA_ANALYST_AI_AGENT)")
         st.session_state.initialized = False
     else:
         st.write(st.session_state.welcome_message)
-        st.write("[GitHub > ](https://github.com/Wilson-ZheLin/Streamline-Analyst)")
+        st.write("[GitHub > ](https://github.com/bhoomikahm-123/DATA_ANALYST_AI_AGENT)")
 
 # ========================================
 # INTRO SECTION
@@ -408,6 +408,7 @@ with tab6:
                         )
 
                     st.success("🎉 Dashboard Image Generated Successfully!")
+
 
 
 
