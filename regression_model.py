@@ -71,25 +71,26 @@ def regression_model_pipeline(df, target_col=None, api_key=None):
         # --- Optional AI Explanation ---
         if api_key:
             try:
-               client = TextGenerationClient(api_key=api_key)  
-               prompt = f"""
-               You are a professional data analyst.
-               The regression model predicts {target_col}.
-               Metrics:
-               - R²: {r2:.2f}
-               - MSE: {mse:.2f}
-               - RMSE: {rmse:.2f}
-               Explain these metrics and the model's predictive performance in simple, non-technical language for a beginner. Keep it under 150 words.
-               """
+                client = TextGenerationClient(api_key=api_key)
+                prompt = f"""
+You are a professional data analyst.
+The regression model predicts {target_col}.
+Metrics:
+- R²: {r2:.2f}
+- MSE: {mse:.2f}
+- RMSE: {rmse:.2f}
+Explain these metrics and the model's predictive performance in simple, non-technical language for a beginner. Keep it under 150 words.
+"""
                 response = client.generate(
-                    model="models/gemini-2.5-flash",
-                    prompt=prompt
+                model="models/gemini-2.5-flash",
+                prompt=prompt
                 )
-                ai_text = response.text  # this is the AI-generated explanation
+                ai_text = response.text
                 st.markdown("### 🧠 AI Explanation")
                 st.info(ai_text)
             except Exception as e:
                 st.warning(f"⚠️ Could not generate AI explanation: {e}")
+
 
         return {
             "r2": r2,
@@ -102,4 +103,5 @@ def regression_model_pipeline(df, target_col=None, api_key=None):
     except Exception as e:
         st.error(f"❌ Regression error: {e}")
         return
+
 
