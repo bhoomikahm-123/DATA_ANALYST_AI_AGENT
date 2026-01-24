@@ -1,29 +1,23 @@
 # Core libraries
-pandas          # Data manipulation
-numpy           # Numerical computations
-scikit-learn    # Machine learning models
-matplotlib      # Plotting charts
-seaborn         # Statistical data visualization
-streamlit==1.25.0  # Web app interface
-altair==4.2.2
+pandas>=2.2
+numpy>=2.0
+scikit-learn>=1.4
+matplotlib>=3.8
+seaborn>=0.13
+streamlit>=1.32.0
+altair>=5,<6
 
-streamlit-lottie
+# Streamlit utilities
+streamlit-lottie==0.0.5
+python-dotenv>=1.0
 
-python-dotenv   # Load environment variables from .env
-
-# Google Gemini / Generative AI API
-google-generativeai>=0.8.0,<0.9   # Access Google Gemini AI for insights
-google-genai
+# Google Gemini / Generative AI
+google-generativeai==0.8.6
+google-genai>=1.50
 
 # Optional utilities
-openpyxl        # Read/write Excel files
-requests        # HTTP requests (for API calls)
-fpdf2           # PDF generation
-Pillow          # Image processing (for dashboard)
-plotly          # Interactive dashboards (optional)
-
-
-
-
-
-
+openpyxl>=3.1
+requests>=2.31
+fpdf2>=2.8
+Pillow>=12
+plotly>=6.5
