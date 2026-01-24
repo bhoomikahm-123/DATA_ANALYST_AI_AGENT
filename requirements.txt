@@ -4,7 +4,9 @@ numpy           # Numerical computations
 scikit-learn    # Machine learning models
 matplotlib      # Plotting charts
 seaborn         # Statistical data visualization
-streamlit       # Web app interface
+streamlit==1.25.0  # Web app interface
+altair==4.2.2
+
 streamlit-lottie
 
 python-dotenv   # Load environment variables from .env
@@ -19,6 +21,7 @@ requests        # HTTP requests (for API calls)
 fpdf2           # PDF generation
 Pillow          # Image processing (for dashboard)
 plotly          # Interactive dashboards (optional)
+
 
 
 
