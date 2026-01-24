@@ -10,7 +10,7 @@ streamlit-lottie
 python-dotenv   # Load environment variables from .env
 
 # Google Gemini / Generative AI API
-google-generativeai>=0.26.0   # Access Google Gemini AI for insights
+google-generativeai>=0.8.0,<0.9   # Access Google Gemini AI for insights
 google-genai
 
 # Optional utilities
@@ -19,6 +19,7 @@ requests        # HTTP requests (for API calls)
 fpdf2           # PDF generation
 Pillow          # Image processing (for dashboard)
 plotly          # Interactive dashboards (optional)
+
 
 
 
