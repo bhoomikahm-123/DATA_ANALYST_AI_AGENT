@@ -110,7 +110,12 @@ def generate_ai_chart_title(chart: dict) -> str:
 
 # ---------------- Main PDF Generator ---------------- #
 
-def create_premium_pdf(df_raw, analysis_result, json_file="chart_recommendations.json", output_path=None):
+def create_premium_pdf(df_raw, analysis_result, api_key, json_file="chart_recommendations.json", output_path=None):
+    if not api_key:
+        raise RuntimeError("GOOGLE_API_KEY is required for PDF generation")
+
+    # 🔒 CONFIGURE HERE (EXPLICIT, NOT GLOBAL)
+    genai.configure(api_key=api_key)
     pdf = PremiumPDF()
     pdf.set_auto_page_break(True, 15)
     _register_unicode_font(pdf)
@@ -218,5 +223,6 @@ def create_premium_pdf(df_raw, analysis_result, json_file="chart_recommendations
     )
     pdf.output(outpath)
     return outpath
+
 
 
