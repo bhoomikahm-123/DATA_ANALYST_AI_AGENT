@@ -294,13 +294,16 @@ with tab5:
 
                 # Generate PDF using premium exporter (this function will save charts itself)
                 try:
-                    pdf_path = create_premium_pdf(
-                        df_raw,
-                        analysis_result,
-                        GOOGLE_API_KEY,
-                        json_file="chart_recommendations.json",
-                        output_path="AI_Data_Insights_Report.pdf"
-                    )
+                    if not _ensure_api_key_ui():
+                        st.error("PDF generation cannot run without GOOGLE_API_KEY set.")
+                    else:                    
+                        pdf_path = create_premium_pdf(
+                            df_raw=df_raw,
+                            analysis_result=analysis_result,
+                            api_key=GOOGLE_API_KEY,
+                            json_file="chart_recommendations.json",
+                            output_path="AI_Data_Insights_Report.pdf"
+                        )
 
                     # Provide download button
                     with open(pdf_path, 'rb') as f:
@@ -408,6 +411,7 @@ with tab6:
                         )
 
                     st.success("🎉 Dashboard Image Generated Successfully!")
+
 
 
 
