@@ -173,12 +173,12 @@ streamlit run app.py
 
 ## 👥 Team Members
 
-| Name         |  Contact           |
-| ------------ | ------------------ |
-| Bhoomika H M |  LinkedIn / GitHub |
-| Chinmayi R   |  Contact           |
-| Isiri P      |  Contact           |
-| Kanmani D B  |  Contact           |
+| Name         |  Contact                                                       |
+| ------------ | ------------------                                             |
+| Bhoomika H M |  [LinkedIn](https://www.linkedin.com/in/bhoomika-hm-b41681291/)|
+| Chinmayi R   |  Contact                                                       |
+| Isiri P      |  Contact                                                       |
+| Kanmani D B  |  Contact                                                       |
 
 ---
 
@@ -224,3 +224,4 @@ Commercial usage requires additional permissions.
 ---
 
 > Built with a focus on **real-world analytics, AI integration, and professional reporting standards**.
+
