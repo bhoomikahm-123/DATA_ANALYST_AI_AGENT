@@ -9,8 +9,6 @@ from visualization import render_and_save_charts
 OUTPUT_DIR = "outputs"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-genai.configure(api_key=GOOGLE_API_KEY)
-
 
 # ---------------- PDF Class ---------------- #
 
@@ -220,4 +218,5 @@ def create_premium_pdf(df_raw, analysis_result, json_file="chart_recommendations
     )
     pdf.output(outpath)
     return outpath
+
 
