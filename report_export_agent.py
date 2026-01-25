@@ -1,7 +1,15 @@
 import os
-import streamlit as st
-import google.generativeai as genai
+import datetime
 from fpdf import FPDF
+import google.generativeai as genai
+from visualization import render_and_save_charts
+
+# ---------------- Configuration ---------------- #
+
+OUTPUT_DIR = "outputs"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+genai.configure(api_key=GOOGLE_API_KEY)
 
 
 # ---------------- PDF Class ---------------- #
@@ -28,13 +36,13 @@ def _sanitize_text(text):
         return ""
     s = str(text)
     replacements = {
-        "\u2014": " - ",
-        "\u2013": "-",
-        "\u2018": "'",
-        "\u2019": "'",
-        "\u201c": '"',
-        "\u201d": '"',
-        "\u2026": "..."
+        "–": "-",  # en dash
+        "—": "-",  # em dash
+        "“": '"',
+        "”": '"',
+        "‘": "'",
+        "’": "'",
+        "…": "...",
     }
     for k, v in replacements.items():
         s = s.replace(k, v)
@@ -46,10 +54,11 @@ def _register_unicode_font(pdf):
     if os.path.exists(font_path):
         pdf.add_font("DejaVu", "", font_path, uni=True)
         pdf.add_font("DejaVu", "B", font_path, uni=True)
+        pdf.set_font("DejaVu", "", 11)  # default font
         pdf._pdf_font_family = "DejaVu"
     else:
+        pdf.set_font("Helvetica", "", 11)
         pdf._pdf_font_family = "Helvetica"
-
 
 def _card(pdf, title, value):
     w = (pdf.w - pdf.l_margin - pdf.r_margin) * 0.22
@@ -103,8 +112,7 @@ def generate_ai_chart_title(chart: dict) -> str:
 
 # ---------------- Main PDF Generator ---------------- #
 
-def create_premium_pdf(df_raw, analysis_result, api_key, json_file="chart_recommendations.json", output_path=None):
-    genai.configure(api_key=api_key)
+def create_premium_pdf(df_raw, analysis_result, json_file="chart_recommendations.json", output_path=None):
     pdf = PremiumPDF()
     pdf.set_auto_page_break(True, 15)
     _register_unicode_font(pdf)
@@ -149,11 +157,18 @@ def create_premium_pdf(df_raw, analysis_result, api_key, json_file="chart_recomm
     pdf.set_font(pdf._pdf_font_family, "", 10)
     try:
         desc = df_raw.describe(include="all").fillna("")
-        for col in desc.columns[:6]:
-            pdf.multi_cell(0, 6, f"{col}: {desc[col].to_dict()}")
+        for col in desc.columns:
+            pdf.set_font(pdf._pdf_font_family, "B", 10)
+            pdf.cell(50, 6, str(col), border=1)
+    
+            pdf.set_font(pdf._pdf_font_family, "", 10)
+            values = desc[col].to_dict()
+            # Join key:value pairs safely
+            val_text = ", ".join([f"{k}:{v}" for k, v in values.items()])
+            pdf.multi_cell(pdf.w - 70, 6, _sanitize_text(val_text), border=1)
             pdf.ln(2)
-    except Exception:
-        pdf.multi_cell(0, 6, "Statistical summary could not be generated.")
+    except Exception as e:
+        pdf.multi_cell(0, 6, f"Statistics could not be generated: {e}")        
 
     # ---------- Visual Insights ---------- #
     charts = render_and_save_charts(
@@ -205,8 +220,4 @@ def create_premium_pdf(df_raw, analysis_result, api_key, json_file="chart_recomm
     )
     pdf.output(outpath)
     return outpath
-
-
-
-
 
